@@ -1,28 +1,55 @@
-import express, { Express } from "express";
-import cors from "cors";
-import dotenv from "dotenv";
-import connectDb from "./config/db";
-import logger from "./utils/logger";
+// src/app.ts
+import express, { Express } from 'express';
+import http from 'http';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import connectDb from './config/db';
+import { initKafka } from './config/kafka';
+import { initRedis } from './config/redis';
+import { initSocketIO } from './socket';
+import { startConsumer } from './kafka/consumer';
+import notificationRoutes from './routes/notification.route';
+import logger from './utils/logger';
 
+// Load environment variables
 dotenv.config();
+
+// Init express app
 const app: Express = express();
-const port = process.env.PORT || 3000;
+const server = http.createServer(app);
+const PORT = process.env.PORT || 3000;
 
-connectDb();
+// Connect to services
+const initServices = async () => {
+  await connectDb();
+  await initRedis();
+  await initKafka();
+  await startConsumer();
+};
 
+initServices().catch(err => {
+  logger.error('Failed to init services:', err);
+  process.exit(1);
+});
+
+// Initialize Socket.IO
+initSocketIO(server);
+
+// Middleware
 app.use(cors());
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
+// Routes
+app.use('/api/notifications', notificationRoutes);
+
+// Health check route
+app.get('/health', (_, res) => {
+  res.status(200).json({ status: 'ok' });
 });
 
-app.get("/health", (_, res) => {
-  res.status(200).json({ status: "ok" });
-});
-
-app.listen(port, () => {
-  logger.info(`Server running on port ${port}`);
+// Start server
+server.listen(PORT, () => {
+  logger.info(`Server running on port ${PORT}`);
 });
 
 export default app;
