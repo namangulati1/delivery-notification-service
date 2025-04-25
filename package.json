@@ -1,7 +1,7 @@
 {
   "name": "nodejs-typescript-backend",
   "version": "1.0.0",
-  "description": "A Node.js TypeScript backend application with MongoDB",
+  "description": "A Node.js TypeScript backend application with MongoDB, Kafka, Redis, and Socket.IO",
   "main": "dist/app.js",
   "scripts": {
     "start": "node dist/app.js",
@@ -12,9 +12,12 @@
   },
   "dependencies": {
     "cors": "^2.8.5",
-    "dotenv": "^16.5.0",
+    "dotenv": "^16.0.3",
     "express": "^4.18.2",
-    "mongoose": "^7.0.3"
+    "kafkajs": "^2.2.4",
+    "mongoose": "^7.0.3",
+    "redis": "^4.6.7",
+    "socket.io": "^4.7.2"
   },
   "devDependencies": {
     "@types/cors": "^2.8.13",
