@@ -8,7 +8,7 @@ export interface INotificationDocument
 
 const NotificationSchema: Schema = new Schema(
   {
-    userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
+    userId: { type: Schema.Types.Mixed, ref: "User", required: true },
     title: { type: String, required: true },
     message: { type: String, required: true },
     type: {

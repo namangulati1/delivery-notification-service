@@ -9,7 +9,7 @@ export const sendNotification = async (notification: INotificationCreate): Promi
             topic: process.env.KAFKA_TOPIC || "notification-topic",
             messages: [
                 {
-                    key: notification.userId,
+                    key: notification.userId.toString(),
                     value: JSON.stringify(notification),
                 },
             ],
