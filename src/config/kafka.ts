@@ -1,5 +1,5 @@
 import { Kafka } from "kafkajs";
-import logger from "../utils/logger";
+import logger from "./logger";
 
 const kafka = new Kafka({
     clientId: process.env.KAFKA_CLIENT_ID || "notification-service-group",

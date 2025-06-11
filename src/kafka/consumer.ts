@@ -1,6 +1,6 @@
 import { consumer } from '../config/kafka';
 import { redisClient } from '../config/redis';
-import logger from '../utils/logger';
+import logger from '../config/logger';
 import { createNotification } from '../service/notification.service';
 import { INotification, INotificationCreate } from '../types/notification.types';
 import { emitToUser } from '../service/socket.service';
