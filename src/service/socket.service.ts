@@ -1,6 +1,6 @@
 import { io } from '../socket';
 import { redisClient } from '../config/redis';
-import logger from '../utils/logger';
+import logger from '../config/logger';
 
 export const emitToUser = async (userId: string, event: string, data: any): Promise<void> => {
   try {

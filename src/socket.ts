@@ -1,7 +1,7 @@
 // src/socket.ts
 import { Server } from 'socket.io';
 import http from 'http';
-import logger from './utils/logger';
+import logger from './config/logger';
 import { redisClient } from './config/redis';
 
 let io: Server;

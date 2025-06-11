@@ -1,5 +1,5 @@
 import { producer } from "../config/kafka";
-import logger from "../utils/logger";
+import logger from "../config/logger";
 
 import { INotificationCreate } from "../types/notification.types";
 
